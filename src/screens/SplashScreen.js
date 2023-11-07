@@ -11,8 +11,15 @@ import {ScreenNames} from '../utils/essentials';
 
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      navigation?.replace(ScreenNames.Onboarding);
+    const timeout = setTimeout(async () => {
+      const loginStatus = await AsyncStorage.getItem('isloggedin');
+
+      if (loginStatus === 'yes') {
+        const loggedInUserName = await AsyncStorage.getItem('currentName');
+        navigation.replace(ScreenNames.HomeScreen, {Name: loggedInUserName});
+      } else {
+        navigation?.replace(ScreenNames.Onboarding);
+      }
     }, 2000);
 
     return () => {

@@ -16,7 +16,7 @@ import {SwitchButton} from '../components/Buttons';
 const {height} = Dimensions.get('screen');
 const HomeScreen = ({navigation, route}) => {
   const {params} = route;
-  const [usersList, setUsersList] = useState([]);
+  const [userDetails, setUserDetails] = useState({});
   const retrieveList = async key => {
     const stringifiedList = await AsyncStorage.getItem(key);
     if (stringifiedList !== null) {
@@ -29,7 +29,11 @@ const HomeScreen = ({navigation, route}) => {
   };
   const retrieveData = async () => {
     let list = await retrieveList('userData');
-    setUsersList(list);
+    let currentUserObj = list?.filter((item, index) => {
+      return item.Name === params.Name;
+    });
+
+    setUserDetails(currentUserObj[0]);
   };
   useEffect(() => {
     const backAction = () => {
@@ -56,7 +60,9 @@ const HomeScreen = ({navigation, route}) => {
         <View style={{flex: 1}}>
           <SwitchButton
             label="LOG OUT"
-            onPressFunc={() => {
+            onPressFunc={async () => {
+              await AsyncStorage.removeItem('isloggedin');
+              await AsyncStorage.removeItem('currentName');
               navigation?.replace(ScreenNames?.Onboarding);
             }}
           />
@@ -74,28 +80,25 @@ const HomeScreen = ({navigation, route}) => {
       <ScrollView
         style={{height: height}}
         contentContainerStyle={{paddingBottom: 30}}>
-        {usersList &&
-          usersList.length > 0 &&
-          usersList.map((item, index) => {
-            return (
-              <View
-                key={item.Email}
-                style={{
-                  padding: 15,
-                  borderRadius: 20,
-                  alignItems: 'center',
-                  backgroundColor: 'black',
-                  margin: 20,
-                }}>
-                <Text style={Styles.showtext}>Email:{item.Email}</Text>
-                <Text style={Styles.showtext}>Password:{item.Password}</Text>
-                <Text style={Styles.showtext}>name:{item.Name}</Text>
-                <Text style={Styles.showtext}>
-                  Designation:{item.Designation}
-                </Text>
-              </View>
-            );
-          })}
+        {Object.keys(userDetails).length !== 0 && (
+          <View
+            style={{
+              padding: 15,
+              borderRadius: 20,
+              alignItems: 'center',
+              backgroundColor: 'black',
+              margin: 20,
+            }}>
+            <Text style={Styles.showtext}>Email:{userDetails?.Email}</Text>
+            <Text style={Styles.showtext}>
+              Password:{userDetails?.Password}
+            </Text>
+            <Text style={Styles.showtext}>name:{userDetails?.Name}</Text>
+            <Text style={Styles.showtext}>
+              Designation:{userDetails?.Designation}
+            </Text>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

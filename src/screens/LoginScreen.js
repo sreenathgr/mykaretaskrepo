@@ -84,6 +84,8 @@ const LoginScreen = ({navigation}) => {
 
       let currentUserName = checkList[0]?.Name;
       if (expectedEmail === email && expectedPassword === password) {
+        await AsyncStorage.setItem('isloggedin', 'yes');
+        await AsyncStorage.setItem('currentName', currentUserName);
         clearFields();
         navigation.replace(ScreenNames.HomeScreen, {Name: currentUserName});
       } else {

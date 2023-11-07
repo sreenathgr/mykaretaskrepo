@@ -218,6 +218,8 @@ const RegisterScreen = ({navigation}) => {
       list.push(obj);
 
       await storeList('userData', list);
+      await AsyncStorage.setItem('isloggedin', 'yes');
+      await AsyncStorage.setItem('currentName', name);
       clearFields();
       navigation.replace(ScreenNames.HomeScreen, {Name: name});
     } else {
