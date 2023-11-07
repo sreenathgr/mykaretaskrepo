@@ -4,6 +4,7 @@ import React from 'react';
 const CustomTextInputWithLabel = ({
   label = '',
   placeholder = '',
+  inputValue = '',
   isError = false,
   isSecure = false,
   onChangeTextFunc = () => {},
@@ -17,6 +18,7 @@ const CustomTextInputWithLabel = ({
       </View>
       <View style={Styles.textInputContainer}>
         <TextInput
+          value={inputValue}
           style={Styles.textInputStyle}
           placeholder={placeholder}
           secureTextEntry={isSecure}
@@ -46,6 +48,7 @@ const Styles = StyleSheet.create({
     paddingTop: 10,
   },
   textInputStyle: {
+    color: 'white',
     backgroundColor: '#0F1A20',
     borderRadius: 30,
     paddingStart: 15,

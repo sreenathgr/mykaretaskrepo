@@ -1,5 +1,7 @@
 export const ScreenNames = {
+  Onboarding: 'OnboardingScreen',
   SplashScreen: 'SplashScreen',
-  LoginOrRegister: 'LoginOrRegister',
+  Login: 'LoginScreen',
+  Register: 'Register',
   HomeScreen: 'HomeScreen',
 };

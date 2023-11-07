@@ -11,7 +11,7 @@ import {ScreenNames} from '../utils/essentials';
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigation?.replace(ScreenNames.LoginOrRegister);
+      navigation?.replace(ScreenNames.Onboarding);
     }, 2000);
     return () => {
       clearTimeout(timeout);
