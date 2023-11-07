@@ -87,10 +87,12 @@ const HomeScreen = ({navigation, route}) => {
                   backgroundColor: 'black',
                   margin: 20,
                 }}>
-                <Text>Email:{item.Email}</Text>
-                <Text>Password:{item.Password}</Text>
-                <Text>name:{item.Name}</Text>
-                <Text>Designation:{item.Designation}</Text>
+                <Text style={Styles.showtext}>Email:{item.Email}</Text>
+                <Text style={Styles.showtext}>Password:{item.Password}</Text>
+                <Text style={Styles.showtext}>name:{item.Name}</Text>
+                <Text style={Styles.showtext}>
+                  Designation:{item.Designation}
+                </Text>
               </View>
             );
           })}
@@ -114,5 +116,8 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  showtext: {
+    color: 'white',
   },
 });
