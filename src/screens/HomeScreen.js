@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+
 import {
   View,
   Text,
@@ -6,6 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
   Dimensions,
+  BackHandler,
 } from 'react-native';
 import {ScreenNames} from '../utils/essentials';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -29,7 +31,20 @@ const HomeScreen = ({navigation, route}) => {
     let list = await retrieveList('userData');
     setUsersList(list);
   };
+  useEffect(() => {
+    const backAction = () => {
+      return true;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
   return (
     <SafeAreaView style={Styles.container}>
       <View style={Styles.headerView}>

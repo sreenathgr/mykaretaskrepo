@@ -55,10 +55,9 @@ const LoginScreen = ({navigation}) => {
     const stringifiedList = await AsyncStorage.getItem(key);
     if (stringifiedList !== null) {
       const list = JSON.parse(stringifiedList);
-      console.log('list is', list);
+
       return list;
     } else {
-      console.log('default ');
       return [];
     }
   };
@@ -79,18 +78,15 @@ const LoginScreen = ({navigation}) => {
     const userList = await retrieveList('userData');
     let checkList = userList.filter(item => item.Email === email);
     if (checkList?.length > 0) {
-      console.log('login checklist', checkList);
       let expectedEmail = checkList[0]?.Email;
-      console.log('expected email', expectedEmail);
+
       let expectedPassword = checkList[0]?.Password;
-      console.log('exp password', expectedPassword);
+
       let currentUserName = checkList[0]?.Name;
       if (expectedEmail === email && expectedPassword === password) {
         clearFields();
         navigation.replace(ScreenNames.HomeScreen, {Name: currentUserName});
-        console.log('logged in');
       } else {
-        console.log('User does not exist');
         setCommonSubmitError(true);
         SetCommonSubmitErrorText('User does not exist');
       }
@@ -175,13 +171,9 @@ const LoginScreen = ({navigation}) => {
           <CustomSubmitButton
             label={'Login'}
             onPressFn={() => {
-              console.log('pressed');
               if (commonSubmitValidation()) {
-                console.log('Login success');
-
                 checkUserExists();
               } else {
-                console.log('Login failed');
                 setCommonSubmitError(true);
                 SetCommonSubmitErrorText('Login Failed!');
               }

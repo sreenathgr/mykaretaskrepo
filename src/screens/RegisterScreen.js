@@ -36,10 +36,9 @@ const RegisterScreen = ({navigation}) => {
     const stringifiedList = await AsyncStorage.getItem(key);
     if (stringifiedList !== null) {
       const list = JSON.parse(stringifiedList);
-      console.log('list is', list);
+
       return list;
     } else {
-      console.log('default ');
       return [];
     }
   };
@@ -214,10 +213,10 @@ const RegisterScreen = ({navigation}) => {
       Designation: designation,
     };
     let CheckList = list.filter(item => item.Email === email);
-    console.log('check', CheckList);
+
     if (CheckList.length === 0) {
       list.push(obj);
-      console.log('new list', list);
+
       await storeList('userData', list);
       clearFields();
       navigation.replace(ScreenNames.HomeScreen, {Name: name});
@@ -282,11 +281,8 @@ const RegisterScreen = ({navigation}) => {
             label={'Register'}
             onPressFn={() => {
               if (commonSubmitValidation()) {
-                console.log('true');
-
                 addToUserData();
               } else {
-                console.log('false');
                 setCommonSubmitError(true);
                 SetCommonSubmitErrorText('Registration Failed!!');
               }

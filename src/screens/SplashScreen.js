@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -13,10 +14,12 @@ const SplashScreen = ({navigation}) => {
     const timeout = setTimeout(() => {
       navigation?.replace(ScreenNames.Onboarding);
     }, 2000);
+
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, [navigation]);
+
   return (
     <SafeAreaView style={Styles.container}>
       <ImageBackground
